@@ -41,7 +41,6 @@ const handleCommand = async (key) => {
 </script>
 
 <template>
-
   <el-container class="layout-container">
     <el-aside width="200px">
       <div class="el-aside__logo"></div>

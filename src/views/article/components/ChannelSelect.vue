@@ -20,7 +20,6 @@ getChannelList()
 </script>
 
 <template>
-  <!-- label 展示给用户看的，value 收集起来提交给后台的 -->
   <el-select
     :modelValue="modelValue"
     @update:modelValue="emit('update:modelValue', $event)"

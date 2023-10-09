@@ -87,23 +87,7 @@ watch(isRegister, () => {
 </script>
 
 <template>
-  <!-- 
-    1. 结构相关
-      el-row表示一行，一行分成24份 
-       el-col表示列  
-       (1) :span="12"  代表在一行中，占12份 (50%)
-       (2) :span="6"   表示在一行中，占6份  (25%)
-       (3) :offset="3" 代表在一行中，左侧margin份数
-
-       el-form 整个表单组件
-       el-form-item 表单的一行 （一个表单域）
-       el-input 表单元素（输入框）
-    2. 校验相关
-       (1) el-form => :model="ruleForm"      绑定的整个form的数据对象 { xxx, xxx, xxx }
-       (2) el-form => :rules="rules"         绑定的整个rules规则对象  { xxx, xxx, xxx }
-       (3) 表单元素 => v-model="ruleForm.xxx" 给表单元素，绑定form的子属性
-       (4) el-form-item => prop配置生效的是哪个校验规则 (和rules中的字段要对应)
-  -->
+  <!-- el-row划分区域 -->
   <el-row class="login-page">
     <el-col :span="12" class="bg"></el-col>
     <el-col :span="6" :offset="3" class="form">
@@ -215,7 +199,7 @@ watch(isRegister, () => {
 <style lang="scss" scoped>
 .login-page {
   height: 100vh;
-  background-color: #fff;
+  background-color: #c7aec1;
   .bg {
     background: url('@/assets/logo2.png') no-repeat 60% center / 240px auto,
       url('@/assets/login_bg.jpg') no-repeat center / cover;

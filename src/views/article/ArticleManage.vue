@@ -31,9 +31,7 @@ getArticleList()
 
 // 处理分页逻辑
 const onSizeChange = (size) => {
-  // console.log('当前每页条数', size)
-  // 只要是每页条数变化了，那么原本正在访问的当前页意义不大了，数据大概率已经不在原来那一页了
-  // 重新从第一页渲染即可
+  // 重新从第一页渲染
   params.value.pagenum = 1
   params.value.pagesize = size
   // 基于最新的当前页 和 每页条数，渲染数据
@@ -98,14 +96,14 @@ const onSuccess = (type) => {
 </script>
 
 <template>
-  <page-container title="文章管理">
+  <page-container title="表白管理">
     <template #extra>
       <el-button type="primary" @click="onAddArticle">添加文章</el-button>
     </template>
 
     <!-- 表单区域 -->
     <el-form inline>
-      <el-form-item label="文章分类:">
+      <el-form-item label="分类:">
         <!-- Vue2 => v-model :value 和 @input 的简写 -->
         <!-- Vue3 => v-model :modelValue 和 @update:modelValue 的简写 -->
         <channel-select v-model="params.cate_id"></channel-select>

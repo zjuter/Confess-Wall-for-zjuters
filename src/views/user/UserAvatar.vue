@@ -52,7 +52,7 @@ const onUpdateAvatar = async () => {
       type="success"
       :icon="Upload"
       size="large"
-      >上传头像</el-button
+      >上传帅照</el-button
     >
   </page-container>
 </template>

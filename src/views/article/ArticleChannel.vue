@@ -37,7 +37,7 @@ const onSuccess = () => {
 </script>
 
 <template>
-  <page-container title="文章分类">
+  <page-container title="分类">
     <template #extra>
       <el-button @click="onAddChannel">添加分类</el-button>
     </template>
@@ -45,7 +45,7 @@ const onSuccess = () => {
     <el-table v-loading="loading" :data="channelList" style="width: 100%">
       <el-table-column type="index" label="序号" width="100"></el-table-column>
       <el-table-column prop="cate_name" label="分类名称"></el-table-column>
-      <el-table-column prop="cate_alias" label="分类别名"></el-table-column>
+      <el-table-column prop="cate_alias" label="来点注释"></el-table-column>
       <el-table-column label="操作" width="150">
         <!-- row 就是 channelList 的一项， $index 下标 -->
         <template #default="{ row, $index }">

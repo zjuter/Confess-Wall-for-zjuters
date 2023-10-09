@@ -17,10 +17,10 @@ const rules = {
     }
   ],
   cate_alias: [
-    { required: true, message: '请输入分类别名', trigger: 'blur' },
+    { required: true, message: '来点注释', trigger: 'blur' },
     {
-      pattern: /^[a-zA-Z0-9]{1,15}$/,
-      message: '分类名必须是 1-15 位的字母或数字',
+      pattern: /^\S{1,20}$/,
+      message: '分类名必须是 1-20 位的非空字符',
       trigger: 'blur'
     }
   ]
@@ -47,7 +47,7 @@ const onSubmit = async () => {
 // open调用后，可以打开弹窗
 const open = (row) => {
   dialogVisible.value = true
-  formModel.value = { ...row } // 添加 → 重置了表单内容，编辑 → 存储了需要回显的数据
+  formModel.value = { ...row } // 添加：重置了表单内容，编辑：存储了需要回显的数据
 }
 
 // 向外暴露方法

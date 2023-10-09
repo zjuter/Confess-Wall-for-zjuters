@@ -64,10 +64,6 @@ const onPublish = async (state) => {
   }
 }
 
-// 组件对外暴露一个方法 open，基于open传来的参数，区分添加还是编辑
-// open({})  => 表单无需渲染，说明是添加
-// open({ id, ..., ... })  => 表单需要渲染，说明是编辑
-// open调用后，可以打开抽屉
 const editorRef = ref()
 const open = async (row) => {
   visibleDrawer.value = true // 显示抽屉
@@ -87,7 +83,7 @@ const open = async (row) => {
     formModel.value.cover_img = file
   } else {
     formModel.value = { ...defaultForm } // 基于默认的数据，重置form数据
-    // 这里重置了表单的数据，但是图片上传img地址，富文本编辑器内容 => 需要手动重置
+    // 重置了表单的数据
     imgUrl.value = ''
     editorRef.value.setHTML('')
   }
@@ -124,22 +120,22 @@ defineExpose({
 <template>
   <el-drawer
     v-model="visibleDrawer"
-    :title="formModel.id ? '编辑文章' : '添加文章'"
+    :title="formModel.id ? '编辑表白' : '添加表白'"
     direction="rtl"
     size="50%"
   >
     <!-- 发表文章表单 -->
     <el-form :model="formModel" ref="formRef" label-width="100px">
-      <el-form-item label="文章标题" prop="title">
+      <el-form-item label="标题 " prop="title">
         <el-input v-model="formModel.title" placeholder="请输入标题"></el-input>
       </el-form-item>
-      <el-form-item label="文章分类" prop="cate_id">
+      <el-form-item label="分类" prop="cate_id">
         <channel-select
           v-model="formModel.cate_id"
           width="100%"
         ></channel-select>
       </el-form-item>
-      <el-form-item label="文章封面" prop="cover_img">
+      <el-form-item label="来点图片" prop="cover_img">
         <!-- 此处需要关闭 element-plus 的自动上传，不需要配置 action 等参数
              只需要做前端的本地预览图片即可，无需在提交前上传图标
              语法：URL.createObjectURL(...) 创建本地预览的地址，来预览
