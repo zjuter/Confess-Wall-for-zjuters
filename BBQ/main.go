@@ -1,49 +1,52 @@
-package main
+package userController
 
 import (
-	"BBQ/config/database"
-	"BBQ/config/router"
-	"log"
+	"BBQ/app/models"
+    "BBQ/app/services/userService"
+	"BBQ/app/utils"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func main() {
-	database.Init()
-	r := gin.Default()
-	
-	//这里是设置跨域访问，我也不知道是不是必要的，反正就是问chatgpt，不知不觉就能访问了。
+type LoginData struct{
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
 
-	// 设置跨域请求头信息
-	r.Use(func(c *gin.Context) {
-		// 设置允许的请求来源
-		c.Header("Access-Control-Allow-Origin", "http://localhost:5173")
-		
-		// 设置允许的请求方法
-		c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		
-		// 设置允许的请求头
-		allowedHeaders := "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Token"
-		requestHeaders := c.Request.Header.Get("Access-Control-Request-Headers")
-		if len(requestHeaders) > 0 {
-			allowedHeaders += ", " + requestHeaders
-		}
-		c.Header("Access-Control-Allow-Headers", allowedHeaders)
-		
-		// 如果是预检请求 OPTIONS，直接返回成功状态码和空响应体
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
-			return
-		}
-		
-		// 继续处理其他请求
-		c.Next()
-	})
-
-	router.Init(r)
-
-	err := r.Run("127.0.0.1:8080")
+func Login(c *gin.Context){
+	//接收参数
+	var data LoginData
+	err := c.ShouldBindJSON(&data)
 	if err != nil {
-		log.Fatal("Server start failed: ", err)
+		utils.JsonErrorResponse(c, 200501, "参数错误")
+		return
 	}
+
+	 //判断用户是否存在
+	err = userService.CheckUserExistByUsername(data.Username)
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			utils.JsonErrorResponse(c, 1, "账号或密码错误，请重新输入叭！")
+	    }
+		return
+	}
+ 
+	 //获取用户信息
+	var user *models.User
+	user, err = userService.GetUserByUsername(data.Username)
+	if err != nil {
+		utils.JsonInternalServerErrorResponse(c)
+		return
+	}
+
+	 //判断密码是否正确
+	flag := userService.ComparePwd(data.Password, user.Password)
+	if !flag {
+		utils.JsonErrorResponse(c, 1, "账号或密码错误，请重新输入叭！")
+		return
+	}
+	// 返回用户信息
+	utils.JsonErrorResponse(c, 0, "登录成功")
+
 }
