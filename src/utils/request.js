@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useUserStore } from '@/stores'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
-const baseURL = 'http://big-event-vue-api-t.itheima.net'
+const baseURL = 'http://127.0.0.1:8080'
 
 const instance = axios.create({
   // TODO 1. 基础地址，超时时间
@@ -43,7 +43,8 @@ instance.interceptors.response.use(
     }
 
     // 错误的默认情况 => 只要给提示
-    ElMessage.error(err.response.data.message || '服务异常')
+    ElMessage.error(err.response || '服务异常')
+      console.log(err)
     return Promise.reject(err)
   }
 )
