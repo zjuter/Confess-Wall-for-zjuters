@@ -18,6 +18,7 @@ type RegisterData struct {
 func Register(c *gin.Context){
 	var data RegisterData
 	err := c.ShouldBindJSON(&data)
+	
 	if err != nil {
 		utils.JsonErrorResponse(c, 200501, "参数错误")
 		return

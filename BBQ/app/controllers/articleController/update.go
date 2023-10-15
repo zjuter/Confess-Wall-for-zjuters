@@ -38,7 +38,6 @@ func UpdateArticle(c *gin.Context) {
 	}
     //更新文章
 	err = articleService.UpdateArticle(models.Article{
-		ID:       data.ID,
 		Title:    data.Title,
 	    CateID:   data.CateID,
 	    Content:  data.Content,

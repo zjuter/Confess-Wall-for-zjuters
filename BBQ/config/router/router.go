@@ -24,7 +24,6 @@ func Init(r *gin.Engine){
 		my.PUT("/article/info", articleController.UpdateArticle)
 		my.DELETE("/article/info",articleController.DeleteArticle)
 		my.GET("/article/info", articleController.GetAritical)
-		my.GET("/article/list", articleController.GetList)
 	}
 
 
