@@ -48,7 +48,7 @@ const handleCommand = async (key) => {
       <div class="el-aside__logo"></div>
       <!-- el-menu菜单组件 -->
       <el-menu
-        active-text-color="#ffd04b"
+        active-text-color="#FFB6C1"
         background-color="#232323"
         :default-active="$route.path"
         text-color="#fff"

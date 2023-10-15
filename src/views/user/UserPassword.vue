@@ -14,7 +14,7 @@ const pwdForm = ref({
 const checkDifferent = (rule, value, callback) => {
   // 校验新密码和原密码不能一样
   if (value === pwdForm.value.old_pwd) {
-    callback(new Error('新密码不能与原密码一样'))
+    callback(new Error('你改了吗？如改'))
   } else {
     callback()
   }
